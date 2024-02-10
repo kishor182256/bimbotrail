@@ -3,18 +3,22 @@ import React, { useState } from 'react';
 import FloorPlanViewer from './FloorPlanViewer';
 
 const App = () => {
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState({});
   const [selectedLevel, setSelectedLevel] = useState(null);
-  
+
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     const newFiles = files.map(file => ({ file, name: file.name }));
-    setSelectedFiles((prevFiles) => [...prevFiles, ...newFiles]);
+
+    // Update selectedFiles for the current level
+    setSelectedFiles((prevFiles) => ({
+      ...prevFiles,
+      [selectedLevel]: [...(prevFiles[selectedLevel] || []), ...newFiles],
+    }));
   };
 
   const handleLevelButtonClick = (level) => {
     setSelectedLevel(level);
-    console.log("handleLevelButtonClick",level)
   };
 
   return (
@@ -35,7 +39,9 @@ const App = () => {
       </div>
 
       {/* Display Floor Plan Viewer if files are selected */}
-      {selectedFiles.length > 0 && <FloorPlanViewer pdfFiles={selectedFiles} />}
+      {selectedFiles[selectedLevel] && (
+        <FloorPlanViewer pdfFiles={selectedFiles[selectedLevel]} />
+      )}
     </div>
   );
 };
