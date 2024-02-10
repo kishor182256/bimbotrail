@@ -1,0 +1,23 @@
+.floor-plan-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .controls-container {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .pdf-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+  }
+  
+  .canvas {
+    border: 1px solid black;
+    margin-top: 10px;
+  }
